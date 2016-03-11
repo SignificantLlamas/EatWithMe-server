@@ -42,7 +42,7 @@ npm install
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://trello.com/b/ALJz58W5/significant-llama)
 
 
 ## Contributing
