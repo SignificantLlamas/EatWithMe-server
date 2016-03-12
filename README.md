@@ -31,6 +31,12 @@
 
 ## Development
 
+To run linter:
+
+```sh
+npm run lint
+```
+
 ### Installing Dependencies
 
 From within the root directory:
