@@ -1,2 +1,3 @@
-var Promise = require('bluebird');
-module.exports = Promise.promisifyAll(require('mongoose'));
+require('mongoose').Promise = require('bluebird');
+
+module.exports = require('mongoose');
