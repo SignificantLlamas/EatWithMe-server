@@ -7,9 +7,9 @@ module.exports = {
     Events.findOne({ yelp_id: eventid })
     .then(function (foundEvent) {
       if (foundEvent) {
-        res.status(200).json(foundEvent);
+        res.status(201).json(foundEvent);
       } else {
-        res.sendStatus(400);
+        res.sendStatus(404);
       }
     })
     .catch(function (error) {
