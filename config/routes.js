@@ -1,9 +1,7 @@
 // Commented out to avoid linting error
 
-// var eventsController = require('../controllers/events.controller.js');
 var usersController = require('../controllers/users.controller.js');
 var eventsController = require('../controllers/events.controller.js');
-// var usersController = require('../controllers/users.controller.js');
 
 module.exports = function (app) {
   // app.get('/users/:userid/events', usersController.getEvents);
