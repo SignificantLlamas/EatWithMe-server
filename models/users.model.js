@@ -1,11 +1,11 @@
-var db = require('../config/db.js');
+var mongoose = require('../config/db.js');
 
-var usersSchema = new db.Schema({
+var usersSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true
   },
-  events: [{ type: db.Schema.Types.ObjectId, ref: 'Events' }]
+  events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Events' }]
 });
 
-module.exports = db.model('Users', usersSchema);
+module.exports = mongoose.model('Users', usersSchema);
