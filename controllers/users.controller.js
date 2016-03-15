@@ -17,7 +17,7 @@ exports.create = function (req, res) {
 };
 
 exports.getOne = function (req, res) {
-  Users.findOne({ _id: req.params.userid })
+  Users.findOne({ _id: req.params.userId })
   .then(function (person) {
     if (person) {
       res.status(200).json(person);
