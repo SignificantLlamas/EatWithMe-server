@@ -17,9 +17,6 @@ var eventsSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  num_of_people: {
-    type: Number
-  },
   restaurant_name: {
     type: String,
     required: true
@@ -28,6 +25,7 @@ var eventsSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  creatorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
   users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }]
 });
 
