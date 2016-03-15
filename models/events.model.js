@@ -17,9 +17,6 @@ var eventsSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  num_of_people: {
-    type: Number
-  },
   restaurant_name: {
     type: String,
     required: true

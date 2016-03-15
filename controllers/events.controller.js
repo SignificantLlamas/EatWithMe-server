@@ -34,7 +34,6 @@ exports.create = function (req, res) {
     max: req.body.max,
     restaurant_name: req.body.restaurantName,
     restaurant_address: req.body.restaurantAddress,
-    num_of_people: 1,
     creatorId: req.body.userId,
     users: [req.body.userId]
   })
@@ -42,6 +41,6 @@ exports.create = function (req, res) {
     res.sendStatus(201);
   })
   .catch(function (err) {
-    res.json(400, err);
+    res.status(400).json(err);
   });
 };
