@@ -1,7 +1,7 @@
 var mongoose = require('../config/db');
 
 var eventsSchema = new mongoose.Schema({
-  yelp_id: {
+  yelpId: {
     type: String,
     required: true
   },
@@ -17,11 +17,11 @@ var eventsSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  restaurant_name: {
+  restaurantName: {
     type: String,
     required: true
   },
-  restaurant_address: {
+  restaurantAddress: {
     type: String,
     required: true
   },
