@@ -1,4 +1,5 @@
 var Events = require('../models/events.model');
+var Users = require('../models/users.model');
 
 // gets all data for one event (restaurant)
 exports.getOne = function (req, res) {
@@ -45,5 +46,28 @@ exports.create = function (req, res) {
   })
   .catch(function (err) {
     res.status(400).json(err);
+  });
+};
+
+exports.update = function (req, res) {
+  var eventId = req.params.eventid;
+  var userId = req.body.userId;
+
+  Events.findByIdAndUpdate(eventId, { $addToSet: { users: userId } })
+  .then(function updateUser(foundEvent) {
+    if (!foundEvent) {
+      Error('event not found');
+    }
+    return Users.findByIdAndUpdate(userId, { $addToSet: { events: eventId } });
+  })
+  .then(function sendUpdateStatus(foundUser) {
+    if (!foundUser) {
+      Error('user not found');
+    }
+    res.sendStatus(202);
+  })
+  .catch(function updateError(error) {
+    res.sendStatus(404);
+    console.error(error);
   });
 };
