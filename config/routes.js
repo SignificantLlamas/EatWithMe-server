@@ -8,7 +8,7 @@ module.exports = function (app) {
   app.get('/users/:userid', usersController.getOne);
   app.post('/users/', usersController.create);
 
-  // app.get('/events', eventsController.getAll);
+  app.get('/events', eventsController.getAll);
   app.get('/events/:eventid', eventsController.getOne);
   // app.post('/events', eventsController.create);
   // app.put('/events/:eventid', eventsController.update);
