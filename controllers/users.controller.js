@@ -15,3 +15,17 @@ exports.create = function (req, res) {
     res.status(400).send(err);
   });
 };
+
+exports.getOne = function (req, res) {
+  Users.findOne({ _id: req.params.userid })
+  .then(function (person) {
+    if (person) {
+      res.status(200).json(person);
+    } else {
+      res.sendStatus(404);
+    }
+  })
+  .catch(function (err) {
+    res.status(400).send(err);
+  });
+};
