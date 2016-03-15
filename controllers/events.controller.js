@@ -42,6 +42,6 @@ exports.create = function (req, res) {
     res.sendStatus(201);
   })
   .catch(function (err) {
-    res.json(404, err);
+    res.json(400, err);
   });
 };

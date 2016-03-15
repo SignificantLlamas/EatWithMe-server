@@ -10,6 +10,6 @@ module.exports = function (app) {
 
   app.get('/events', eventsController.getAll);
   app.get('/events/:eventid', eventsController.getOne);
-  // app.post('/events', eventsController.create);
+  app.post('/events', eventsController.create);
   // app.put('/events/:eventid', eventsController.update);
 };
