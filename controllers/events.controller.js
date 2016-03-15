@@ -25,3 +25,23 @@ exports.getAll = function (req, res) {
     res.sendStatus(400).json(error);
   });
 };
+
+exports.create = function (req, res) {
+  Events.create({
+    yelp_id: req.body.yelpId,
+    dateTime: req.body.dateTime,
+    min: req.body.min,
+    max: req.body.max,
+    restaurant_name: req.body.restaurantName,
+    restaurant_address: req.body.restaurantAddress,
+    num_of_people: 1,
+    creatorId: req.body.userId,
+    users: [req.body.userId]
+  })
+  .then(function () {
+    res.sendStatus(201);
+  })
+  .catch(function (err) {
+    res.json(404, err);
+  });
+};
