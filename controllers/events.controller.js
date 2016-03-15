@@ -40,8 +40,8 @@ exports.create = function (req, res) {
     creatorId: req.body.userId,
     users: [req.body.userId]
   })
-  .then(function () {
-    res.sendStatus(201);
+  .then(function (event) {
+    res.status(201).json(event);
   })
   .catch(function (err) {
     res.status(400).json(err);
