@@ -9,7 +9,7 @@ module.exports = function (app) {
   app.post('/users/', usersController.create);
 
   app.get('/events', eventsController.getAll);
-  app.get('/events/:yelpId', eventsController.getOne);
+  app.get('/events/:eventId', eventsController.getOne);
   app.post('/events', eventsController.create);
   // app.put('/events/:eventid', eventsController.update);
 };
