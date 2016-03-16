@@ -11,5 +11,5 @@ module.exports = function (app) {
   app.get('/events', eventsController.getAll);
   app.get('/events/:eventId', eventsController.getOne);
   app.post('/events', eventsController.create);
-  // app.put('/events/:eventid', eventsController.update);
+  app.put('/events/:eventId', eventsController.update);
 };
