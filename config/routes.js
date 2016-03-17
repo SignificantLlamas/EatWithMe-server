@@ -2,6 +2,7 @@
 
 var usersController = require('../controllers/users.controller.js');
 var eventsController = require('../controllers/events.controller.js');
+var yelpConstroller = require('../controllers/yelp.controller.js');
 
 module.exports = function (app) {
   // app.get('/users/:userId/events', usersController.getEvents);
@@ -12,4 +13,6 @@ module.exports = function (app) {
   app.get('/events/:eventId', eventsController.getOne);
   app.post('/events', eventsController.create);
   app.put('/events/:eventId', eventsController.update);
+
+  app.get('/api/yelp', yelpConstroller.search);
 };
