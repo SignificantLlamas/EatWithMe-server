@@ -18,6 +18,7 @@ exports.create = function (req, res) {
 
 exports.getOne = function (req, res) {
   Users.findOne({ _id: req.params.userId })
+  .populate('events')
   .then(function (person) {
     if (person) {
       res.status(200).json(person);
