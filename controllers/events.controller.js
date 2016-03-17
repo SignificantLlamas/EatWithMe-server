@@ -54,7 +54,7 @@ exports.update = function (req, res) {
   var eventId = req.params.eventId;
   var userId = req.body.userId;
 
-  Promise.all(Events.findById(eventId), Users.findById(userId))
+  Promise.all([Events.findById(eventId), Users.findById(userId)])
   .then(function updateEventAndUser(findResults) {
     if (!findResults[0]) {
       throw new Error('event not found');
