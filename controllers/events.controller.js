@@ -6,6 +6,7 @@ exports.getOne = function (req, res) {
   var eventId = req.params.eventId;
 
   Events.findOne({ _id: eventId })
+  .populate('users')
   .then(function (foundEvent) {
     if (foundEvent) {
       res.status(201).json(foundEvent);

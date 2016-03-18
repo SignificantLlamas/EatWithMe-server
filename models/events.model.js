@@ -25,8 +25,8 @@ var eventsSchema = new mongoose.Schema({
     type: Object,
     required: true
   },
-  creatorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
-  users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }]
+  creatorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', autopopulate: true },
+  users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users', autopopulate: true }]
 });
 
 module.exports = mongoose.model('Events', eventsSchema);
