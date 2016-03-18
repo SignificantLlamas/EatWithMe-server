@@ -22,7 +22,7 @@ var eventsSchema = new mongoose.Schema({
     required: true
   },
   restaurantAddress: {
-    type: String,
+    type: Object,
     required: true
   },
   creatorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
