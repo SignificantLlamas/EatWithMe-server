@@ -32,20 +32,30 @@ exports.getAll = function (req, res) {
 
 // creates a new event
 exports.create = function (req, res) {
-  Events.create({
-    yelpId: req.body.yelpId,
-    dateTime: req.body.dateTime,
-    min: req.body.min,
-    max: req.body.max,
-    restaurantName: req.body.restaurantName,
-    restaurantAddress: req.body.restaurantAddress,
-    creatorId: req.body.userId,
-    users: [req.body.userId]
+  Users.findById(req.body.userId)
+  .then(function foundUser(user) {
+    if (!user) {
+      throw new Error('user not found');
+    }
+
+    return Events.create({
+      yelpId: req.body.yelpId,
+      dateTime: req.body.dateTime,
+      min: req.body.min,
+      max: req.body.max,
+      restaurantName: req.body.restaurantName,
+      restaurantAddress: req.body.restaurantAddress,
+      creatorId: req.body.userId,
+      users: [req.body.userId]
+    });
   })
-  .then(function (event) {
-    res.status(201).json(event);
+  .then(function createdEvent(event) {
+    return Users.findByIdAndUpdate(req.body.userId, { $push: { events: event._id } })
+    .then(function () {
+      res.status(201).json(event._id);
+    });
   })
-  .catch(function (err) {
+  .catch(function errorCatch(err) {
     res.status(400).json(err);
   });
 };
