@@ -10,15 +10,10 @@ db.connect('mongodb://localhost/family-style');
 
 require('./config/middleware.js')(app);
 require('./config/routes.js')(app);
+require('./config/socket.handler.js')(io);
 
 server.listen(PORT, function () {
   console.log('Listening on port ' + PORT);
-});
-
-io.on('connection', function ioConnect(socket) {
-  socket.on('test', function ioEmit() {
-    io.emit('hello World');
-  });
 });
 
 module.exports = app;
