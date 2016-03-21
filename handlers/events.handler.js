@@ -53,29 +53,16 @@ exports.create = function create(req, res) {
   });
 };
 
-// // updates an event.users and user.events
-// exports.update = function (req, res) {
-//   var eventId = req.params.eventId;
-//   var userId = req.body.userId;
+// updates an event.users and user.events
+exports.update = function update(req, res) {
+  var eventId = req.params.eventId;
+  var userId = req.body.userId;
 
-//   Promise.all([Events.findById(eventId), Users.findById(userId)])
-//   .then(function updateEventAndUser(findResults) {
-//     if (!findResults[0]) {
-//       throw new Error('event not found');
-//     }
-
-//     if (!findResults[1]) {
-//       throw new Error('user not found');
-//     }
-
-//     return Promise.all([Events.findByIdAndUpdate(eventId, { $addToSet: { users: userId } }),
-//       Users.findByIdAndUpdate(userId, { $addToSet: { events: eventId } })]
-//     );
-//   })
-//   .then(function sendStatus() {
-//     res.sendStatus(202);
-//   })
-//   .catch(function updateError(error) {
-//     res.status(404).json({ error: error.message });
-//   });
-// };
+  EventsController.update(eventId, userId)
+  .then(function sendStatus() {
+    res.status(202).json(eventId);
+  })
+  .catch(function updateError(error) {
+    res.status(404).json({ error: error.message });
+  });
+};
