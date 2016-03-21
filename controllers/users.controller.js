@@ -1,32 +1,22 @@
 var Users = require('../models/users.model.js');
 
-exports.create = function (req, res) {
-  Users.findOne({ username: req.body.username })
-  .then(function (user) {
-    if (user) {
-      return user;
+exports.create = function create(username) {
+  return Users.findOne({ username: username })
+  .then(function thenFoundUser(foundUser) {
+    if (foundUser) {
+      return foundUser;
     }
-    return Users.create({ username: req.body.username });
-  })
-  .then(function (user) {
-    res.status(201).send(user);
-  })
-  .catch(function (err) {
-    res.status(400).send(err);
+    return Users.create({ username: username });
   });
 };
 
-exports.getOne = function (req, res) {
-  Users.findOne({ _id: req.params.userId })
+exports.getOne = function getOne(userId) {
+  return Users.findOne(userId)
   .populate('events')
-  .then(function (person) {
-    if (person) {
-      res.status(200).json(person);
-    } else {
-      res.sendStatus(404);
+  .then(function returnUserInfo(user) {
+    if (!user) {
+      throw new Error('user not found');
     }
-  })
-  .catch(function (err) {
-    res.status(400).send(err);
+    return user;
   });
 };
