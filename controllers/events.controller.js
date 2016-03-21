@@ -5,18 +5,12 @@ var Promise = require('bluebird');
 // gets all data for one event (restaurant)
 exports.getOne = function getOne(eventId) {
   return Events.findOne({ _id: eventId })
-  .populate('users')
-  .then(function thenFoundEvent(foundEvent) {
-    return foundEvent;
-  });
+  .populate('users');
 };
 
 // get all events happening for one yelpId
 exports.getAll = function getAll(yelpId) {
-  return Events.find({ yelpId: yelpId })
-  .then(function thenFoundEvents(foundEvents) {
-    return foundEvents;
-  });
+  return Events.find({ yelpId: yelpId });
 };
 
 // creates a new event
