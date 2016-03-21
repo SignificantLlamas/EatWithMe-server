@@ -3,7 +3,7 @@ var Users = require('../models/users.model');
 var Promise = require('bluebird');
 
 // gets all data for one event (restaurant)
-exports.getOne = function (eventId) {
+exports.getOne = function getOne(eventId) {
   return Events.findOne({ _id: eventId })
   .populate('users')
   .then(function thenFoundEvent(foundEvent) {
@@ -12,7 +12,7 @@ exports.getOne = function (eventId) {
 };
 
 // get all events happening for one yelpId
-exports.getAll = function (yelpId) {
+exports.getAll = function getAll(yelpId) {
   return Events.find({ yelpId: yelpId })
   .then(function thenFoundEvents(foundEvents) {
     return foundEvents;
@@ -20,7 +20,7 @@ exports.getAll = function (yelpId) {
 };
 
 // creates a new event
-exports.create = function (userId, eventInfo) {
+exports.create = function create(userId, eventInfo) {
   return Users.findById(userId)
   .then(function thenFoundUser(foundUser) {
     if (!foundUser) {
@@ -38,7 +38,7 @@ exports.create = function (userId, eventInfo) {
 };
 
 // updates an event.users and user.events
-exports.update = function (eventId, userId) {
+exports.update = function update(eventId, userId) {
   return Promise.all([Events.findById(eventId), Users.findById(userId)])
   .then(function updateEventAndUser(findResults) {
     if (!findResults[0]) {
