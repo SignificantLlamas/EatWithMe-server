@@ -12,17 +12,14 @@ exports.create = function create(req, res) {
   });
 };
 
-// exports.getOne = function (req, res) {
-//   Users.findOne({ _id: req.params.userId })
-//   .populate('events')
-//   .then(function (person) {
-//     if (person) {
-//       res.status(200).json(person);
-//     } else {
-//       res.sendStatus(404);
-//     }
-//   })
-//   .catch(function (err) {
-//     res.status(400).send(err);
-//   });
-// };
+exports.getOne = function getOne(req, res) {
+  var userId = req.params.userId;
+
+  UsersController.getOne(userId)
+  .then(function getOneComplete(user) {
+    res.status(200).json(user);
+  })
+  .catch(function getOneFailed(err) {
+    res.status(400).send(err.message);
+  });
+};
