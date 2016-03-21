@@ -6,19 +6,19 @@ var Promise = require('bluebird');
 exports.getOne = function (eventId) {
   return Events.findOne({ _id: eventId })
   .populate('users')
-  .then(function findingEvent(foundEvent) {
+  .then(function thenFoundEvent(foundEvent) {
     return foundEvent;
   });
 };
 
 // get all events happening for one yelpId
-exports.getAll = function (req, res) {
-  Events.find({ yelpId: req.query.yelpId })
-  .then(function (events) {
-    res.status(200).json(events);
+exports.getAll = function (yelpId) {
+  return Events.find({ yelpId: yelpId })
+  .then(function thenFoundEvents(foundEvents) {
+    return foundEvents;
   })
-  .catch(function (error) {
-    res.status(400).json(error);
+  .catch(function catchError(error) {
+    return error;
   });
 };
 

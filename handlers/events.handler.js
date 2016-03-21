@@ -1,31 +1,34 @@
 var EventsController = require('../controllers/events.controller');
 
-exports.getOne = function (req, res) {
+// gets all data for one event (restaurant)
+exports.getOne = function getOne(req, res) {
   var eventId = req.params.eventId;
 
   EventsController.getOne(eventId)
-  .then(function controllerReturn(foundEvent) {
+  .then(function thenFoundEvent(foundEvent) {
     if (!foundEvent) {
       throw new Error('event not found');
     } else {
       res.status(201).json(foundEvent);
     }
   })
-  .catch(function (error) {
+  .catch(function catchError(error) {
     res.status(404).json(error.message);
   });
 };
 
-// // get all events happening for one yelpId
-// exports.getAll = function (req, res) {
-//   Events.find({ yelpId: req.query.yelpId })
-//   .then(function (events) {
-//     res.status(200).json(events);
-//   })
-//   .catch(function (error) {
-//     res.status(400).json(error);
-//   });
-// };
+// get all events happening for one yelpId
+exports.getAll = function getAll(req, res) {
+  var yelpId = req.query.yelpId;
+
+  EventsController.getAll(yelpId)
+  .then(function thenFoundEvents(foundEvents) {
+    res.status(200).json(foundEvents);
+  })
+  .catch(function catchError(error) {
+    res.status(400).json(error);
+  });
+};
 
 // // creates a new event
 // exports.create = function (req, res) {
