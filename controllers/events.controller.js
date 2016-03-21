@@ -1,21 +1,13 @@
 var Events = require('../models/events.model');
 var Users = require('../models/users.model');
 var Promise = require('bluebird');
-// gets all data for one event (restaurant)
-exports.getOne = function (req, res) {
-  var eventId = req.params.eventId;
 
-  Events.findOne({ _id: eventId })
+// gets all data for one event (restaurant)
+exports.getOne = function (eventId) {
+  return Events.findOne({ _id: eventId })
   .populate('users')
-  .then(function (foundEvent) {
-    if (foundEvent) {
-      res.status(201).json(foundEvent);
-    } else {
-      res.sendStatus(404);
-    }
-  })
-  .catch(function (error) {
-    console.log(error);
+  .then(function findingEvent(foundEvent) {
+    return foundEvent;
   });
 };
 

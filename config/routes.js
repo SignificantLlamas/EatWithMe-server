@@ -1,8 +1,8 @@
 // Commented out to avoid linting error
-
+var eventsHandler = require('../handlers/events.handler.js');
 var usersController = require('../controllers/users.controller.js');
 var eventsController = require('../controllers/events.controller.js');
-var yelpConstroller = require('../controllers/yelp.controller.js');
+var yelpController = require('../controllers/yelp.controller.js');
 
 module.exports = function (app) {
   // app.get('/users/:userId/events', usersController.getEvents);
@@ -10,9 +10,9 @@ module.exports = function (app) {
   app.post('/users/', usersController.create);
 
   app.get('/events', eventsController.getAll);
-  app.get('/events/:eventId', eventsController.getOne);
+  app.get('/events/:eventId', eventsHandler.getOne);
   app.post('/events', eventsController.create);
   app.put('/events/:eventId', eventsController.update);
 
-  app.get('/api/yelp', yelpConstroller.search);
+  app.get('/api/yelp', yelpController.search);
 };
