@@ -30,35 +30,28 @@ exports.getAll = function getAll(req, res) {
   });
 };
 
-// // creates a new event
-// exports.create = function (req, res) {
-//   Users.findById(req.body.userId)
-//   .then(function foundUser(user) {
-//     if (!user) {
-//       throw new Error('user not found');
-//     }
+// creates a new event
+exports.create = function create(req, res) {
+  var userId = req.body.userId;
+  var eventInfo = {
+    yelpId: req.body.yelpId,
+    dateTime: req.body.dateTime,
+    min: req.body.min,
+    max: req.body.max,
+    restaurantName: req.body.restaurantName,
+    restaurantAddress: req.body.restaurantAddress,
+    creatorId: req.body.userId,
+    users: [req.body.userId]
+  };
 
-//     return Events.create({
-//       yelpId: req.body.yelpId,
-//       dateTime: req.body.dateTime,
-//       min: req.body.min,
-//       max: req.body.max,
-//       restaurantName: req.body.restaurantName,
-//       restaurantAddress: req.body.restaurantAddress,
-//       creatorId: req.body.userId,
-//       users: [req.body.userId]
-//     });
-//   })
-//   .then(function createdEvent(event) {
-//     return Users.findByIdAndUpdate(req.body.userId, { $push: { events: event._id } })
-//     .then(function () {
-//       res.status(201).json(event._id);
-//     });
-//   })
-//   .catch(function errorCatch(err) {
-//     res.status(400).json(err);
-//   });
-// };
+  EventsController.create(userId, eventInfo)
+  .then(function thencreatedEventId(createdEventId) {
+    res.status(201).json(createdEventId);
+  })
+  .catch(function errorCatch(err) {
+    res.status(400).json(err);
+  });
+};
 
 // // updates an event.users and user.events
 // exports.update = function (req, res) {

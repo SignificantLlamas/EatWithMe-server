@@ -16,39 +16,24 @@ exports.getAll = function (yelpId) {
   return Events.find({ yelpId: yelpId })
   .then(function thenFoundEvents(foundEvents) {
     return foundEvents;
-  })
-  .catch(function catchError(error) {
-    return error;
   });
 };
 
 // creates a new event
-exports.create = function (req, res) {
-  Users.findById(req.body.userId)
-  .then(function foundUser(user) {
-    if (!user) {
+exports.create = function (userId, eventInfo) {
+  return Users.findById(userId)
+  .then(function thenFoundUser(foundUser) {
+    if (!foundUser) {
       throw new Error('user not found');
     }
 
-    return Events.create({
-      yelpId: req.body.yelpId,
-      dateTime: req.body.dateTime,
-      min: req.body.min,
-      max: req.body.max,
-      restaurantName: req.body.restaurantName,
-      restaurantAddress: req.body.restaurantAddress,
-      creatorId: req.body.userId,
-      users: [req.body.userId]
-    });
+    return Events.create(eventInfo);
   })
-  .then(function createdEvent(event) {
-    return Users.findByIdAndUpdate(req.body.userId, { $push: { events: event._id } })
-    .then(function () {
-      res.status(201).json(event._id);
+  .then(function thenCreatedEvent(createdEvent) {
+    return Users.findByIdAndUpdate(userId, { $push: { events: createdEvent._id } })
+    .then(function thenReturnEventId() {
+      return createdEvent._id;
     });
-  })
-  .catch(function errorCatch(err) {
-    res.status(400).json(err);
   });
 };
 

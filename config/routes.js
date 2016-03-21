@@ -11,7 +11,7 @@ module.exports = function routesHandler(app) {
 
   app.get('/events', eventsHandler.getAll);
   app.get('/events/:eventId', eventsHandler.getOne);
-  app.post('/events', eventsController.create);
+  app.post('/events', eventsHandler.create);
   app.put('/events/:eventId', eventsController.update);
 
   app.get('/api/yelp', yelpController.search);
