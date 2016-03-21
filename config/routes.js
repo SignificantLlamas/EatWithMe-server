@@ -4,7 +4,7 @@ var usersController = require('../controllers/users.controller.js');
 var eventsController = require('../controllers/events.controller.js');
 var yelpController = require('../controllers/yelp.controller.js');
 
-module.exports = function (app) {
+module.exports = function routesHandler(app) {
   // app.get('/users/:userId/events', usersController.getEvents);
   app.get('/users/:userId', usersController.getOne);
   app.post('/users/', usersController.create);
