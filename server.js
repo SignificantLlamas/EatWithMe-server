@@ -12,8 +12,8 @@ require('./config/middleware.js')(app);
 require('./config/routes.js')(app);
 require('./config/socket.handler.js')(io);
 
-server.listen(PORT, function () {
-  console.log('Listening on port ' + PORT);
+server.listen(PORT, function serverListen() {
+  console.log('Listening on port ' + PORT);  //  eslint-disable-line no-console
 });
 
 module.exports = app;

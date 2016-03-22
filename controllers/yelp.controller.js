@@ -14,14 +14,14 @@ var defaultSearch = {
   limit: 5
 };
 
-exports.search = function (req, res) {
+exports.search = function search(req, res) {
   var searchParams = _.assign(defaultSearch, req.query);
 
   yelp.search(searchParams)
-    .then(function (result) {
-      res.status(200).json(result);
-    })
-    .catch(function (error) {
-      res.status(404).json(error);
-    });
+  .then(function returnResults(results) {
+    res.status(200).json(results);
+  })
+  .catch(function catchError(error) {
+    res.status(404).json(error);
+  });
 };

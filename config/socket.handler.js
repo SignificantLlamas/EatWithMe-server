@@ -1,4 +1,4 @@
-module.exports = function (io) {
+module.exports = function socketHandler(io) {
   // each time this namespace is called, a new socket-room is created
   var tableio = io.of('/table');
 
