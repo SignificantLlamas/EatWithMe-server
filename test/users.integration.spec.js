@@ -1,7 +1,7 @@
 /*eslint-disable */
 var app = require('../server.js');
 var expect = require('chai').expect;
-var request = require('supertest');
+var request = require('supertest')(app);
 var mongoose = require('mongoose');
 
 var User = require('../models/users.model');
@@ -34,7 +34,7 @@ describe('Users Integration Test', function () {
   });
 
   it('Signup creates a new user', function (done) {
-    request(app)
+    request
     .post('/users')
     .send({
       username: 'test4'
@@ -55,7 +55,7 @@ describe('Users Integration Test', function () {
   });
 
   it('Signs in an existing user', function (done) {
-    request(app)
+    request
     .post('/users')
     .send({
       username: 'test3'
@@ -79,7 +79,7 @@ describe('Users Integration Test', function () {
     .then(function (user) {
       testUserId = user._id;
 
-      request(app)
+      request
       .get('/users/'+testUserId)
       .expect(200)
       .end(function (err, response) {
@@ -92,6 +92,21 @@ describe('Users Integration Test', function () {
           done();
         }
       });
+    });
+  });
+
+  it('returns 400 given a fake userId', function (done) {
+    request
+    .get('/users/56f211328a7c00b09f2986aa')
+    .expect(400)
+    .end(function (err, response) {
+      if(err){
+        console.error(err);
+        done(err);
+      } else {
+        expect(response.status).to.equal(400);
+        done();
+      }
     });
   });
 });
