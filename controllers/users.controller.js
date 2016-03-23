@@ -11,7 +11,7 @@ exports.create = function create(username) {
 };
 
 exports.getOne = function getOne(userId) {
-  return Users.findOne(userId)
+  return Users.findById(userId)
   .populate('events')
   .then(function returnUserInfo(user) {
     if (!user) {
