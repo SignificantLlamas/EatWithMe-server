@@ -1,12 +1,12 @@
 var Users = require('../models/users.model.js');
 
-exports.create = function create(username) {
-  return Users.findOne({ username: username })
+exports.create = function create(fbId, fullName, firstName) {
+  return Users.findOne({ fbId: fbId })
   .then(function thenFoundUser(foundUser) {
     if (foundUser) {
       return foundUser;
     }
-    return Users.create({ username: username });
+    return Users.create({ fbId: fbId, fullName: fullName, firstName: firstName });
   });
 };
 

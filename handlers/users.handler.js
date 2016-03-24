@@ -1,9 +1,11 @@
 var UsersController = require('../controllers/users.controller');
 
 exports.create = function create(req, res) {
-  var username = req.body.username;
+  var fbId = req.body.fbId;
+  var fullName = req.body.fullName;
+  var firstName = req.body.firstName;
 
-  UsersController.create(username)
+  UsersController.create(fbId, fullName, firstName)
   .then(function createComplete(user) {
     res.status(201).send(user);
   })
