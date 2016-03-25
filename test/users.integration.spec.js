@@ -15,15 +15,21 @@ describe('Users Integration Test', function () {
     clearDB(function () {
       var users = [
         {
-          username: 'test1',
+          fbId: '1',
+          fullName: 'test1 test1',
+          firstName: 'test1',
           events: []
         },
         {
-          username: 'test2',
+          fbId: '2',
+          fullName: 'test2 test2',
+          firstName: 'test2',
           events: []
         },
         {
-          username: 'test3',
+          fbId: '3',
+          fullName: 'test3 test3',
+          firstName: 'test4',
           events: []
         }
       ];
@@ -37,7 +43,9 @@ describe('Users Integration Test', function () {
     request
     .post('/users')
     .send({
-      username: 'test4'
+      fbId: '4',
+      fullName: 'test4 test4',
+      firstName: 'test4'
     })
     .expect(201)
     .end(function (err) {
@@ -45,7 +53,7 @@ describe('Users Integration Test', function () {
         console.error(err);
         done(err);
       } else {
-        User.findOne({ 'username': 'test4' })
+        User.findOne({ 'firstName': 'test4' })
         .exec(function (err, user) {
           expect(user.events).to.exist;
           done();
@@ -58,7 +66,9 @@ describe('Users Integration Test', function () {
     request
     .post('/users')
     .send({
-      username: 'test3'
+      fbId: '3',
+      fullName: 'test3 test3',
+      firstName: 'test3'
     })
     .expect(201)
     .end(function (err, response) {
@@ -75,7 +85,7 @@ describe('Users Integration Test', function () {
   it('gets a user\'s info', function (done) {
     var testUserId;
 
-    User.findOne({'username':'test1'})
+    User.findOne({'firstName':'test1'})
     .then(function (user) {
       testUserId = user._id;
 
@@ -87,7 +97,7 @@ describe('Users Integration Test', function () {
           console.error(err);
           done(err);
         } else {
-          expect(response.body.username).to.equal('test1');
+          expect(response.body.firstName).to.equal('test1');
           expect(response.body._id).to.equal(String(testUserId));
           done();
         }
