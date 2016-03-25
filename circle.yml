@@ -1,3 +1,7 @@
 test:
   override:
     - npm test
+
+checkout:
+  post:
+    - cp config/keys.js config/keys.example.js
