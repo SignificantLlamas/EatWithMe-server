@@ -1,0 +1,7 @@
+checkout:
+  post:
+    - cp config/keys.example.js config/keys.js
+
+test:
+  override:
+    - npm test
