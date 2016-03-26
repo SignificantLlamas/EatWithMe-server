@@ -17,6 +17,10 @@ var eventsSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  phone: {
+    type: String,
+    required: true
+  },
   restaurantName: {
     type: String,
     required: true

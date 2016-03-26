@@ -38,6 +38,7 @@ exports.create = function create(req, res) {
     dateTime: req.body.dateTime,
     min: req.body.min,
     max: req.body.max,
+    phone: req.body.phone,
     restaurantName: req.body.restaurantName,
     restaurantAddress: req.body.restaurantAddress,
     creatorId: req.body.userId,
