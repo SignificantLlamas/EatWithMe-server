@@ -24,6 +24,7 @@
     "express": "^4.13.4",
     "mongoose": "^4.4.6",
     "morgan": "^1.7.0",
+    "redis": "^2.5.3",
     "socket.io": "^1.4.5",
     "supertest": "^1.2.0",
     "underscore": "^1.8.3",
