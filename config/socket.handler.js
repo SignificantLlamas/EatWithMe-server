@@ -17,7 +17,7 @@ module.exports = function socketHandler(io) {
         }));
       })
       .then(function sendMessages(messages) {
-        tableio.to(eventId).emit('loadMessages', messages);
+        tableio.to(socket.id).emit('loadMessages', messages);
       });
     });
 
