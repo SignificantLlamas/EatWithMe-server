@@ -2,6 +2,22 @@ var Events = require('../models/events.model');
 var Users = require('../models/users.model');
 var Promise = require('bluebird');
 
+exports.getNearby = function getNearby(longitude, latitude) {
+  var lat = parseFloat(latitude);
+  var lng = parseFloat(longitude);
+
+  return Events.find({
+    location: {
+      $near: {
+        $geometry: {
+          type: 'Point', coordinates: [lng, lat]
+        },
+        $maxDistance: 500
+      }
+    }
+  });
+};
+
 // gets all data for one event (restaurant)
 exports.getOne = function getOne(eventId) {
   return Events.findOne({ _id: eventId })
@@ -33,7 +49,6 @@ exports.create = function create(userId, eventInfo) {
     if (!foundUser) {
       throw new Error('user not found');
     }
-
     return Events.create(eventInfo);
   })
   .then(function thenCreatedEvent(createdEvent) {

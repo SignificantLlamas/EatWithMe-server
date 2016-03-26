@@ -5,7 +5,6 @@ var yelpHandler = require('../handlers/yelp.handler.js');
 var leaderBoardHandler = require('../handlers/leaderBoard.handler.js');
 
 module.exports = function routesHandler(app) {
-  // app.get('/users/:userId/events', usersController.getEvents);
   app.get('/users/:userId', usersHandler.getOne);
   app.post('/users/', usersHandler.create);
 
@@ -16,6 +15,8 @@ module.exports = function routesHandler(app) {
   app.put('/events/remove/:eventId', eventsHandler.removeUserFromEvent);
 
   app.get('/leaderBoard', leaderBoardHandler.leaderBoard);
+
+  app.get('/nearby', eventsHandler.getNearby);
 
   app.get('/api/yelp', yelpHandler.search);
 };

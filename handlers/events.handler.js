@@ -1,6 +1,24 @@
 var EventsController = require('../controllers/events.controller');
 var client = require('../config/redis.js');
 var Promise = require('bluebird');
+// gets all data for nearby events (restaurant)
+exports.getNearby = function getNearby(req, res) {
+  var lng = req.query.lng;
+  var lat = req.query.lat;
+
+  EventsController.getNearby(lng, lat)
+  .then(function thenFoundEvents(foundEvents) {
+    if (!foundEvents) {
+      throw new Error('event not found');
+    } else {
+      res.status(201).json(foundEvents);
+    }
+  })
+  .catch(function catchError(error) {
+    console.log(error);
+    res.status(404).json(error.message);
+  });
+};
 
 // gets all data for one event (restaurant)
 exports.getOne = function getOne(req, res) {
@@ -34,7 +52,15 @@ exports.getAll = function getAll(req, res) {
 
 // creates a new event
 exports.create = function create(req, res) {
+  var createdEventId;
   var userId = req.body.userId;
+  var location = {
+    type: 'Point',
+    coordinates: [
+      req.body.restaurantAddress.coordinate.longitude,
+      req.body.restaurantAddress.coordinate.latitude
+    ]
+  };
   var eventInfo = {
     yelpId: req.body.yelpId,
     dateTime: req.body.dateTime,
@@ -42,10 +68,10 @@ exports.create = function create(req, res) {
     phone: req.body.phone,
     restaurantName: req.body.restaurantName,
     restaurantAddress: req.body.restaurantAddress,
+    location: location,
     creatorId: req.body.userId,
     users: [req.body.userId]
   };
-  var createdEventId;
   EventsController.create(userId, eventInfo)
   .then(function thenCreatedEventId(eventId) {
     // Adding restaurant info to redis
