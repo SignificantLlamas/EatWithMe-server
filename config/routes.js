@@ -13,5 +13,7 @@ module.exports = function routesHandler(app) {
   app.post('/events', eventsHandler.create);
   app.put('/events/:eventId', eventsHandler.update);
 
+  app.get('/nearby/:zipcode', eventsHandler.getNearby);
+
   app.get('/api/yelp', yelpHandler.search);
 };
