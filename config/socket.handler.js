@@ -1,12 +1,9 @@
-var redis = require('redis');
+var client = require('./redis.js');
 var Promise = require('bluebird');
-Promise.promisifyAll(redis.RedisClient.prototype);
-Promise.promisifyAll(redis.Multi.prototype);
 
 module.exports = function socketHandler(io) {
   // each time this namespace is called, a new socket-room is created
   var tableio = io.of('/table');
-  var client = redis.createClient();
 
   tableio.on('connection', function ioConnect(socket) {
     socket.on('loadMessages', function loadMessages(eventId) {

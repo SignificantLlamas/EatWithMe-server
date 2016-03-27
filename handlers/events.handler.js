@@ -1,4 +1,6 @@
 var EventsController = require('../controllers/events.controller');
+var client = require('../config/redis.js');
+var Promise = require('bluebird');
 
 // gets all data for one event (restaurant)
 exports.getOne = function getOne(req, res) {
@@ -43,9 +45,20 @@ exports.create = function create(req, res) {
     creatorId: req.body.userId,
     users: [req.body.userId]
   };
-
+  var createdEventId;
   EventsController.create(userId, eventInfo)
-  .then(function thencreatedEventId(createdEventId) {
+  .then(function thenCreatedEventId(eventId) {
+    // Adding restaurant info to redis
+    var addressString = req.body.restaurantAddress.address[0] + ' ' +
+    req.body.restaurantAddress.city + ' ' +
+    req.body.restaurantAddress.state_code + ' ' +
+    req.body.restaurantAddress.postal_code;
+    createdEventId = eventId;
+    return Promise.all([client.hmsetAsync([req.body.yelpId, 'restaurantName',
+      req.body.restaurantName, 'restaurantAddress', addressString]),
+      client.zincrbyAsync(['leaderboard', 1, req.body.yelpId])]);
+  })
+  .then(function returnEventId() {
     res.status(201).json(createdEventId);
   })
   .catch(function errorCatch(err) {
@@ -59,7 +72,9 @@ exports.update = function update(req, res) {
   var userId = req.body.userId;
 
   EventsController.update(eventId, userId)
-  .then(function sendStatus() {
+  .then(function sendStatus(updateArray) {
+    var yelpId = updateArray[0].yelpId;
+    client.zincrbyAsync(['leaderboard', 1, yelpId]);
     res.status(202).json(eventId);
   })
   .catch(function updateError(error) {
