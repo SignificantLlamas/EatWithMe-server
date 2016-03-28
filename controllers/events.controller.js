@@ -2,6 +2,11 @@ var Events = require('../models/events.model');
 var Users = require('../models/users.model');
 var Promise = require('bluebird');
 
+// gets all data for nearby events (restaurant)
+exports.getNearby = function getNearby(zipcode) {
+  return Events.find({ 'restaurantAddress.postal_code': zipcode });
+};
+
 // gets all data for one event (restaurant)
 exports.getOne = function getOne(eventId) {
   return Events.findOne({ _id: eventId })

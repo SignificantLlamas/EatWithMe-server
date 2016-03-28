@@ -1,4 +1,21 @@
 var EventsController = require('../controllers/events.controller');
+// gets all data for nearby events (restaurant)
+exports.getNearby = function getNearby(req, res) {
+  var zipcode = req.params.zipcode;
+
+  EventsController.getNearby(zipcode)
+  .then(function thenFoundEvents(foundEvents) {
+    if (!foundEvents) {
+      throw new Error('event not found');
+    } else {
+      console.log(foundEvents);
+      res.status(201).json(foundEvents);
+    }
+  })
+  .catch(function catchError(error) {
+    res.status(404).json(error.message);
+  });
+};
 
 // gets all data for one event (restaurant)
 exports.getOne = function getOne(req, res) {
