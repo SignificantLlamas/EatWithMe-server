@@ -52,3 +52,36 @@ exports.update = function update(eventId, userId) {
     );
   });
 };
+
+exports.removeUserFromEvent = function removeUserFromEvent(eventId, userId) {
+  return Promise.all([Events.findById(eventId), Users.findById(userId)])
+  .then(function remove(EventAndUserArray) {
+    var i;
+    var j;
+
+    if (!EventAndUserArray[0]) {
+      throw new Error('event not found');
+    }
+
+    if (!EventAndUserArray[1]) {
+      throw new Error('user not found');
+    }
+
+    // remove user from event.users
+    for (i = 0; i < EventAndUserArray[0].users.length; i++) {
+      if (String(EventAndUserArray[0].users[i]) === userId) {
+        EventAndUserArray[0].users.splice(i, 1);
+        EventAndUserArray[0].save();
+      }
+    }
+
+    // remove event from user.events
+    for (j = 0; j < EventAndUserArray[1].events.length; j++) {
+      if (String(EventAndUserArray[1].events[j]) === eventId) {
+        EventAndUserArray[1].events.splice(j, 1);
+        EventAndUserArray[1].save();
+      }
+    }
+    return true;
+  });
+};
