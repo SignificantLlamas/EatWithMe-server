@@ -10,7 +10,20 @@ exports.getOne = function getOne(eventId) {
 
 // get all events happening for one yelpId
 exports.getAll = function getAll(yelpId) {
-  return Events.find({ yelpId: yelpId });
+  return Events.find({ yelpId: yelpId })
+  .then(function sendFutureEvents(foundEvents) {
+    var i;
+    var futureEvents = [];
+    var currentDate = new Date();
+
+    for (i = 0; i < foundEvents.length; i++) {
+      if (foundEvents[i].dateTime > currentDate) {
+        futureEvents.push(foundEvents[i]);
+      }
+    }
+
+    return futureEvents;
+  });
 };
 
 // creates a new event
