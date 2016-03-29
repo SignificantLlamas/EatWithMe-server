@@ -24,8 +24,8 @@ exports.getAll = function getAll(req, res) {
   var yelpId = req.query.yelpId;
 
   EventsController.getAll(yelpId)
-  .then(function thenFoundEvents(foundEvents) {
-    res.status(200).json(foundEvents);
+  .then(function thenFutureEvents(futureEvents) {
+    res.status(200).json(futureEvents);
   })
   .catch(function catchError(error) {
     res.status(400).json(error);
