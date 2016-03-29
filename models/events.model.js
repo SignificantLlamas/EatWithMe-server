@@ -29,4 +29,5 @@ var eventsSchema = new mongoose.Schema({
   users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }]
 });
 
+eventsSchema.index({ dateTime: 1 }, { expireAfterSeconds: 60 * 60 * 24 });
 module.exports = mongoose.model('Events', eventsSchema);
