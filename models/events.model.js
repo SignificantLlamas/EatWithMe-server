@@ -9,10 +9,6 @@ var eventsSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  min: {
-    type: Number,
-    required: true
-  },
   max: {
     type: Number,
     required: true

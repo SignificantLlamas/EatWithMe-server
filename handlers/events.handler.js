@@ -38,7 +38,6 @@ exports.create = function create(req, res) {
   var eventInfo = {
     yelpId: req.body.yelpId,
     dateTime: req.body.dateTime,
-    min: req.body.min,
     max: req.body.max,
     phone: req.body.phone,
     restaurantName: req.body.restaurantName,
