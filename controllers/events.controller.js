@@ -48,6 +48,10 @@ exports.create = function create(userId, eventInfo) {
 exports.update = function update(eventId, userId) {
   return Promise.all([Events.findById(eventId), Users.findById(userId)])
   .then(function updateEventAndUser(findResults) {
+    if (findResults[0].max <= findResults[0].users.length) {
+      throw new Error('ERRMAXUSERS');
+    }
+
     if (!findResults[0]) {
       throw new Error('event not found');
     }
