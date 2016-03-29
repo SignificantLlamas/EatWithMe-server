@@ -86,6 +86,7 @@ exports.update = function update(req, res) {
 exports.removeUserFromEvent = function removeUserFromEvent(req, res) {
   var eventId = req.params.eventId;
   var userId = req.body.userId;
+
   EventsController.removeUserFromEvent(eventId, userId)
   .then(function success() {
     res.status(202);
