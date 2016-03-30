@@ -25,6 +25,10 @@ var eventsSchema = new mongoose.Schema({
     type: Object,
     required: true
   },
+  location: {
+    type: Object,
+    index: '2dsphere'
+  },
   creatorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
   users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }]
 });
