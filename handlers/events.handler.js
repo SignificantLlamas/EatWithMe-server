@@ -15,7 +15,6 @@ exports.getNearby = function getNearby(req, res) {
     }
   })
   .catch(function catchError(error) {
-    console.log(error);
     res.status(404).json(error.message);
   });
 };

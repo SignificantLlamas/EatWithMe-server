@@ -99,7 +99,12 @@ exports.removeUserFromEvent = function removeUserFromEvent(eventId, userId) {
     for (i = 0; i < EventAndUserArray[0].users.length; i++) {
       if (String(EventAndUserArray[0].users[i]) === userId) {
         EventAndUserArray[0].users.splice(i, 1);
-        EventAndUserArray[0].save();
+
+        if (EventAndUserArray[0].users.length === 0) {
+          EventAndUserArray[0].remove();
+        } else {
+          EventAndUserArray[0].save();
+        }
       }
     }
 
