@@ -18,19 +18,22 @@ describe('Users Integration Test', function () {
           fbId: '1',
           fullName: 'test1 test1',
           firstName: 'test1',
-          events: []
+          events: [],
+          imageUrl: 'someUrl1'
         },
         {
           fbId: '2',
           fullName: 'test2 test2',
           firstName: 'test2',
-          events: []
+          events: [],
+          imageUrl: 'someUrl2'
         },
         {
           fbId: '3',
           fullName: 'test3 test3',
           firstName: 'test4',
-          events: []
+          events: [],
+          imageUrl: 'someUrl3'
         }
       ];
       User.create(users, function () {
@@ -45,7 +48,8 @@ describe('Users Integration Test', function () {
     .send({
       fbId: '4',
       fullName: 'test4 test4',
-      firstName: 'test4'
+      firstName: 'test4',
+      pictureUrl: 'someUrl4'
     })
     .expect(201)
     .end(function (err) {
@@ -68,7 +72,8 @@ describe('Users Integration Test', function () {
     .send({
       fbId: '3',
       fullName: 'test3 test3',
-      firstName: 'test3'
+      firstName: 'test3',
+      pictureUrl: 'someUrl3'
     })
     .expect(201)
     .end(function (err, response) {
@@ -99,6 +104,7 @@ describe('Users Integration Test', function () {
         } else {
           expect(response.body.firstName).to.equal('test1');
           expect(response.body._id).to.equal(String(testUserId));
+          expect(response.body.imageUrl).to.equal('someUrl1');
           done();
         }
       });

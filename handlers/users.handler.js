@@ -4,8 +4,9 @@ exports.create = function create(req, res) {
   var fbId = req.body.fbId;
   var fullName = req.body.fullName;
   var firstName = req.body.firstName;
+  var pictureUrl = req.body.pictureUrl;
 
-  UsersController.create(fbId, fullName, firstName)
+  UsersController.create(fbId, fullName, firstName, pictureUrl)
   .then(function createComplete(user) {
     res.status(201).send(user);
   })

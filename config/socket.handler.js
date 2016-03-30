@@ -27,7 +27,7 @@ module.exports = function socketHandler(io) {
       client.incrAsync('messageCount')
       .then(function addMessages(messageCount) {
         Promise.all([client.hmsetAsync(['m:' + messageCount, 'firstName',
-            message.firstName, 'message', message.message]),
+            message.firstName, 'message', message.message, 'pictureUrl', message.pictureUrl]),
             client.rpushAsync([eventId, 'm:' + messageCount])]);
       })
       .then(function sendMessage() {

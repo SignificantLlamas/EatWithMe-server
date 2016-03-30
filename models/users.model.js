@@ -13,6 +13,10 @@ var usersSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  imageUrl: {
+    type: String,
+    required: true
+  },
   events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Events' }]
 });
 
