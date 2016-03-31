@@ -75,13 +75,12 @@ exports.create = function create(req, res) {
   EventsController.create(userId, eventInfo)
   .then(function thenCreatedEventId(eventId) {
     // Adding restaurant info to redis
-    var addressString = req.body.restaurantAddress.address[0] + ' ' +
-    req.body.restaurantAddress.city + ' ' +
-    req.body.restaurantAddress.state_code + ' ' +
-    req.body.restaurantAddress.postal_code;
+    var address = req.body.restaurantAddress;
     createdEventId = eventId;
     return Promise.all([client.hmsetAsync([req.body.yelpId, 'restaurantName',
-      req.body.restaurantName, 'restaurantAddress', addressString]),
+      req.body.restaurantName, 'address', address.address[0],
+      'city', address.city, 'state_code', address.state_code,
+      'postal_code', address.postal_code, 'image', req.body.image]),
       client.zincrbyAsync(['leaderboard', 1, req.body.yelpId])]);
   })
   .then(function returnEventId() {
