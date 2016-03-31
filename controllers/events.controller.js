@@ -12,7 +12,7 @@ exports.getNearby = function getNearby(longitude, latitude) {
         $geometry: {
           type: 'Point', coordinates: [lng, lat]
         },
-        $maxDistance: 500
+        $maxDistance: 6371 * 2.5
       }
     }
   });
