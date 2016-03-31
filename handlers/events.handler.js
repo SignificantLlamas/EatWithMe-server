@@ -80,7 +80,8 @@ exports.create = function create(req, res) {
     return Promise.all([client.hmsetAsync([req.body.yelpId, 'restaurantName',
       req.body.restaurantName, 'address', address.address[0],
       'city', address.city, 'state_code', address.state_code,
-      'postal_code', address.postal_code, 'image', req.body.image]),
+      'postal_code', address.postal_code, 'image', req.body.image,
+      'yelpId', req.body.yelpId]),
       client.zincrbyAsync(['leaderboard', 1, req.body.yelpId])]);
   })
   .then(function returnEventId() {

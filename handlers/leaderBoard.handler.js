@@ -5,7 +5,8 @@ exports.leaderBoard = function getLeaderBoard(req, res) {
   client.zrevrangeAsync(['leaderboard', 0, -1])
   .then(function grabLeaderBoard(leaderBoard) {
     return Promise.all(leaderBoard.map(function mapYelpIds(yelpId) {
-      return client.hgetallAsync(yelpId);
+      return Promise.all([client.hgetallAsync(yelpId),
+        client.zscoreAsync(['leaderboard', yelpId])]);
     }));
   })
   .then(function sendLeaderBoard(leaderBoard) {
